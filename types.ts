@@ -9,10 +9,11 @@ export interface Product {
 
 export enum ProductCategory {
   ALL = 'All',
+  SOAP_BASE = 'Soap Base',
+  SOAPS = 'Hotel Soaps',
   AMENITIES = 'Amenities',
-  SPA = 'Spa Treatments',
-  AROMATHERAPY = 'Aromatherapy',
-  SOAPS = 'Soaps'
+  RAW_MATERIALS = 'Raw Materials',
+  SPA = 'Spa Treatments'
 }
 
 export interface Testimonial {

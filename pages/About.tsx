@@ -1,162 +1,147 @@
+
 import React from 'react';
 import FadeIn from '../components/FadeIn';
-import { TIMELINE_DATA, CERTIFICATIONS, TRUST_REASONS } from '../constants';
+import { CERTIFICATIONS, COMPANY_INFO, TIMELINE_DATA, TRUST_REASONS } from '../constants';
+import { CheckCircle } from 'lucide-react';
 
 const About: React.FC = () => {
   return (
-    <div className="overflow-hidden">
-      {/* Hero Section */}
-      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center bg-brand-dark text-white">
-        <div className="absolute inset-0">
-           <img 
-             src="https://picsum.photos/1920/1080?random=20&grayscale&blur=2" 
-             alt="Herbal Laboratory" 
-             className="w-full h-full object-cover opacity-30 mix-blend-overlay"
-           />
-           <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-brand-dark/50"></div>
-        </div>
-        
-        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-          <FadeIn>
-            <h1 className="font-serif text-5xl md:text-7xl leading-tight mb-6">
-              Pioneering Herbal <br/> Excellence Since 1998
-            </h1>
-            <p className="text-lg md:text-xl text-brand-light/80 max-w-2xl mx-auto font-light">
-              Blending ancient herbal wisdom with modern science for our B2B partners in the hotel and wellness industry. We are dedicated to purity, efficacy, and partnership.
-            </p>
-          </FadeIn>
-        </div>
+    <div className="overflow-hidden bg-white">
+      {/* Hero Section - Legacy Cinematic Style */}
+      <section className="relative py-32 lg:py-40 bg-brand-dark text-white flex items-center justify-center overflow-hidden">
+         <div className="absolute inset-0 opacity-30">
+             <img 
+                src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?q=80&w=2000&auto=format&fit=crop" 
+                alt="Herbal Background" 
+                className="w-full h-full object-cover" 
+             />
+         </div>
+         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+            <FadeIn>
+               <span className="text-brand-gold font-bold tracking-[0.3em] uppercase mb-6 block text-sm">Est. 2023</span>
+               <h1 className="font-serif text-5xl md:text-7xl mb-6 leading-tight">Pioneering Herbal Excellence</h1>
+               <p className="text-xl font-light text-brand-light max-w-2xl mx-auto">
+                   Blending modern manufacturing science with timeless purity to create the finest hospitality amenities.
+               </p>
+            </FadeIn>
+         </div>
       </section>
 
-      {/* Heritage Timeline */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <FadeIn>
-              <h2 className="font-serif text-4xl md:text-5xl text-brand-dark mb-6">
-                Our Heritage of Purity and Innovation
-              </h2>
-              <p className="text-stone-500 text-lg font-light max-w-2xl mx-auto">
-                Follow our journey from humble beginnings to a leader in herbal solutions, built on a foundation of quality and trust.
-              </p>
-            </FadeIn>
-          </div>
+      {/* Timeline - Legacy Vertical Style */}
+      <section className="py-24 bg-stone-50 relative overflow-hidden">
+         <div className="max-w-6xl mx-auto px-4 relative z-10">
+             <div className="text-center mb-20">
+                 <FadeIn>
+                    <h2 className="font-serif text-4xl text-brand-dark mb-4">Our Journey</h2>
+                    <p className="text-stone-500 font-light">From inception to industry leader.</p>
+                 </FadeIn>
+             </div>
 
-          <div className="relative">
-            {/* Vertical Line */}
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-stone-200 transform md:-translate-x-1/2"></div>
+             <div className="relative">
+                 {/* Vertical Line */}
+                 <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-px bg-brand-dark/20"></div>
 
-            <div className="space-y-16 md:space-y-24">
-              {TIMELINE_DATA.map((item, index) => (
-                <div key={index} className={`relative flex flex-col md:flex-row items-center ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
-                  
-                  {/* Timeline Dot */}
-                  <div className="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-brand-dark border-4 border-white shadow-sm transform -translate-x-[5px] md:-translate-x-1/2 z-10 mt-8 md:mt-0"></div>
+                 {TIMELINE_DATA.map((item, index) => (
+                     <div key={index} className={`flex flex-col md:flex-row items-center justify-between mb-20 relative ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+                         {/* Dot */}
+                         <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-brand-gold rounded-full border-4 border-white shadow-md z-10 mt-1.5 md:mt-0"></div>
 
-                  {/* Text Side */}
-                  <div className="w-full md:w-1/2 pl-12 md:pl-0 md:pr-16 text-left md:text-right relative mb-8 md:mb-0">
-                     <div className={index % 2 !== 0 ? 'md:text-left md:pl-16 md:pr-0' : ''}>
-                        <FadeIn delay={0.2} direction={index % 2 === 0 ? 'right' : 'left'}>
-                            <span className="text-brand-gold font-bold text-sm tracking-widest uppercase block mb-2">{item.year}</span>
-                            <h3 className="font-serif text-2xl text-brand-dark mb-3">{item.title}</h3>
-                            <p className="text-stone-500 font-light leading-relaxed">{item.description}</p>
-                        </FadeIn>
+                         {/* Content Side */}
+                         <div className={`w-full md:w-[45%] pl-12 md:pl-0 ${index % 2 === 0 ? 'text-left md:text-right md:pr-12' : 'text-left md:pl-12'}`}>
+                             <FadeIn direction={index % 2 === 0 ? 'right' : 'left'}>
+                                 <div className="text-brand-gold font-bold text-6xl font-serif mb-4 opacity-80 leading-none">{item.year}</div>
+                                 <h3 className="text-2xl font-bold text-brand-dark mb-3">{item.title}</h3>
+                                 <p className="text-stone-600 font-light leading-relaxed">{item.description}</p>
+                             </FadeIn>
+                         </div>
+
+                         {/* Image Side */}
+                         <div className="w-full md:w-[45%] mt-8 md:mt-0 pl-12 md:pl-0">
+                             <FadeIn direction={index % 2 === 0 ? 'left' : 'right'}>
+                                 <img 
+                                    src={item.image} 
+                                    alt={item.title} 
+                                    className="rounded-lg shadow-xl w-full h-64 object-cover hover:scale-105 transition-transform duration-500 grayscale hover:grayscale-0" 
+                                 />
+                             </FadeIn>
+                         </div>
                      </div>
-                  </div>
-
-                  {/* Image Side */}
-                  <div className={`w-full md:w-1/2 pl-12 md:pl-16 ${index % 2 !== 0 ? 'md:pr-16 md:pl-0' : ''}`}>
-                     <FadeIn delay={0.3} direction={index % 2 === 0 ? 'left' : 'right'}>
-                        <div className="relative h-64 w-full rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-500">
-                             <img src={item.image} alt={item.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-                        </div>
-                     </FadeIn>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+                 ))}
+             </div>
+         </div>
       </section>
 
-      {/* Founder Message */}
-      <section className="bg-stone-100 py-24">
-        <div className="max-w-5xl mx-auto px-4">
-          <FadeIn>
-            <div className="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-stone-200 flex flex-col md:flex-row items-center gap-10 md:gap-16">
-              <div className="shrink-0">
-                <div className="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-stone-100 shadow-inner">
-                  <img src="https://picsum.photos/400/400?random=33&grayscale" alt="Founder" className="w-full h-full object-cover" />
-                </div>
-              </div>
-              <div className="flex-grow text-center md:text-left">
-                <h3 className="font-serif text-3xl text-brand-dark mb-6">A Message From Our Founder</h3>
-                <blockquote className="font-serif italic text-xl text-stone-600 leading-relaxed mb-8">
-                  "Our promise has always been to deliver unparalleled purity and efficacy. We blend time-honored traditions with scientific precision to create herbal solutions that elevate your guest's experience. Our partners' trust is the cornerstone of our legacy."
-                </blockquote>
-                <div>
-                  <div className="font-serif text-lg font-bold text-brand-dark">Founder's Signature</div>
-                  <div className="text-xs uppercase tracking-widest text-stone-500 mt-1">CEO & Founder, KL Herbal</div>
-                </div>
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* Certifications */}
+      {/* Founder Section - Distinct Layout */}
       <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <FadeIn>
-                <h2 className="font-serif text-4xl text-brand-dark mb-4">Certified Quality, Unwavering Trust</h2>
-                <p className="text-stone-500 max-w-2xl mx-auto font-light">
-                    We adhere to the highest standards of quality and transparency. Our certifications are a testament to our commitment to excellence.
-                </p>
-            </FadeIn>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {CERTIFICATIONS.map((cert, index) => (
-              <FadeIn key={index} delay={index * 0.1} className="h-full">
-                <div className="bg-stone-50 rounded-xl p-8 text-center h-full hover:bg-white hover:shadow-lg transition-all duration-300 border border-transparent hover:border-stone-100">
-                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm text-brand-dark">
-                    <cert.icon size={32} strokeWidth={1.5} />
-                  </div>
-                  <h4 className="font-bold text-brand-dark mb-3">{cert.title}</h4>
-                  <p className="text-sm text-stone-500 leading-relaxed">{cert.description}</p>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
+         <div className="max-w-5xl mx-auto px-4">
+             <div className="bg-stone-100 rounded-3xl p-8 md:p-16 relative overflow-hidden">
+                 {/* Decorative Background */}
+                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-gold/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                 
+                 <div className="flex flex-col md:flex-row items-center gap-12 relative z-10">
+                     <FadeIn className="shrink-0">
+                         <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-8 border-white shadow-2xl">
+                             <img 
+                                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop" 
+                                alt="Lata Verma" 
+                                className="w-full h-full object-cover" 
+                             />
+                         </div>
+                     </FadeIn>
+                     <FadeIn direction="left" className="text-center md:text-left">
+                         <h2 className="font-serif text-3xl text-brand-dark mb-6">A Message From Our Founder</h2>
+                         <p className="text-xl italic text-stone-600 font-serif leading-relaxed mb-8">
+                             "Our promise has always been to deliver unparalleled purity and efficacy. We blend time-honored traditions with modern scientific precision to create herbal solutions that truly elevate your guest's experience."
+                         </p>
+                         <div className="font-bold text-brand-dark text-xl font-serif">{COMPANY_INFO.founder}</div>
+                         <div className="text-brand-primary text-xs uppercase tracking-widest mt-1">CEO & Founder, {COMPANY_INFO.name}</div>
+                     </FadeIn>
+                 </div>
+             </div>
+         </div>
       </section>
 
-      {/* Why Trust KL Herbal */}
-      <section className="py-24 bg-white border-t border-stone-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-             <div className="text-center mb-16">
-                <FadeIn>
-                    <h2 className="font-serif text-4xl text-brand-dark">Why Trust KL Herbal?</h2>
-                </FadeIn>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                {TRUST_REASONS.map((reason, index) => (
-                    <FadeIn key={index} delay={0.2 + (index * 0.1)}>
-                        <div className="flex items-start gap-5">
-                            <div className="shrink-0 mt-1">
-                                <reason.icon className="text-brand-gold w-8 h-8" strokeWidth={1.5} />
+      {/* Certifications - Legacy Grid */}
+      <section className="py-24 bg-white">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+              <FadeIn>
+                  <h2 className="font-serif text-4xl text-brand-dark mb-6">Certified Quality, Unwavering Trust</h2>
+                  <p className="text-stone-500 font-light max-w-2xl mx-auto mb-16">
+                      We adhere to the highest international standards of quality and transparency.
+                  </p>
+              </FadeIn>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                  {CERTIFICATIONS.map((cert, idx) => (
+                      <FadeIn key={idx} delay={idx * 0.1} className="bg-stone-50 p-8 rounded-2xl hover:shadow-lg transition-shadow border border-stone-100">
+                          <div className="w-16 h-16 mx-auto bg-brand-primary/10 text-brand-primary rounded-full flex items-center justify-center mb-6">
+                              <cert.icon size={32} strokeWidth={1.5} />
+                          </div>
+                          <h3 className="font-bold text-brand-dark mb-3 text-lg">{cert.title}</h3>
+                          <p className="text-stone-500 text-sm leading-relaxed">{cert.description}</p>
+                      </FadeIn>
+                  ))}
+              </div>
+          </div>
+      </section>
+
+      {/* Why Trust - Legacy Features */}
+      <section className="py-24 bg-brand-dark text-white">
+          <div className="max-w-7xl mx-auto px-4">
+               <div className="text-center mb-16">
+                   <h2 className="font-serif text-4xl mb-4">Why Trust KL Herbal?</h2>
+               </div>
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                   {TRUST_REASONS.map((reason, idx) => (
+                        <FadeIn key={idx} delay={idx * 0.1} className="text-left group">
+                            <div className="text-brand-gold mb-6 transform group-hover:scale-110 transition-transform duration-300">
+                                <reason.icon size={40} strokeWidth={1} />
                             </div>
-                            <div>
-                                <h4 className="font-bold text-lg text-brand-dark mb-2">{reason.title}</h4>
-                                <p className="text-stone-600 font-light leading-relaxed">{reason.description}</p>
-                            </div>
-                        </div>
-                    </FadeIn>
-                ))}
-            </div>
-        </div>
+                            <h3 className="font-bold text-xl mb-3 font-serif">{reason.title}</h3>
+                            <p className="text-brand-light/70 font-light text-sm leading-relaxed">{reason.description}</p>
+                        </FadeIn>
+                   ))}
+               </div>
+          </div>
       </section>
     </div>
   );

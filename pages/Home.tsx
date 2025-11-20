@@ -1,134 +1,199 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import FadeIn from '../components/FadeIn';
 import Button from '../components/Button';
+import TextGenerateEffect from '../components/TextGenerateEffect';
+import { CardHoverEffect } from '../components/CardHoverEffect';
 import { ShieldCheck, Award, Factory, CheckCircle } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const Home: React.FC = () => {
+  const { scrollYProgress } = useScroll();
+  // Parallax for CTA background
+  const scale = useTransform(scrollYProgress, [0.8, 1], [1, 1.1]);
+  // Parallax for legacy section image
+  const yLegacy = useTransform(scrollYProgress, [0.3, 0.6], [50, -50]);
+
+  const trustItems = [
+    {
+      title: "GST Verified",
+      description: "Fully compliant and registered business entity.",
+      icon: ShieldCheck
+    },
+    {
+      title: "TrustSEAL",
+      description: "Verified authentication by IndiaMART standards.",
+      icon: Award
+    },
+    {
+      title: "ISO 9001:2015",
+      description: "International standard for quality management.",
+      icon: Factory
+    },
+    {
+      title: "FSSAI Certified",
+      description: "Adhering to strict safety and food standards.",
+      icon: CheckCircle
+    }
+  ];
+
   return (
-    <div className="overflow-hidden">
-      {/* Hero Section */}
-      <section className="relative h-screen min-h-[600px] flex items-center justify-center bg-[#B6B6B4]">
-        {/* Gradient Overlay for that "Studio Grey" look */}
-        <div className="absolute inset-0 bg-gradient-to-br from-stone-400 to-stone-500 opacity-90" />
+    <div className="overflow-hidden bg-stone-50">
+      {/* Hero Section with Video Background */}
+      <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+        {/* Video Background */}
+        <div className="absolute inset-0 z-0">
+             <video 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+                poster="https://images.pexels.com/photos/8063850/pexels-photo-8063850.jpeg"
+                className="absolute inset-0 w-full h-full object-cover"
+            >
+                {/* Pexels video: Water ripples/nature vibe - HD 1080p for reliability */}
+                <source src="https://videos.pexels.com/video-files/5515667/5515667-hd_1920_1080_25fps.mp4" type="video/mp4" />
+            </video>
+             {/* Dark overlay for text readability - Adjusted opacity for better video visibility */}
+            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 bg-brand-dark/20 mix-blend-multiply" />
+        </div>
         
-        {/* Subtle Texture/Noise could go here, but sticking to clean gradient for now */}
-        
-        <div className="relative z-10 max-w-5xl mx-auto px-4 text-center text-white pt-16">
-          <FadeIn delay={0.1}>
-            <h1 className="font-serif text-5xl md:text-7xl font-medium leading-tight mb-6 tracking-tight drop-shadow-md">
-              Pure Herbal Innovation for <br/> Hotels & Wellness
-            </h1>
-          </FadeIn>
+        <div className="relative z-10 max-w-6xl mx-auto px-4 text-center text-white pt-16">
+            <div className="mb-6">
+                <h1 className="font-serif text-5xl md:text-7xl font-medium leading-tight tracking-tight drop-shadow-xl">
+                    <TextGenerateEffect words="Pure Herbal Innovation for Hotels & Wellness" />
+                </h1>
+            </div>
           
-          <FadeIn delay={0.3}>
-            <p className="text-lg md:text-xl text-stone-100 max-w-2xl mx-auto mb-12 font-light leading-relaxed drop-shadow-sm">
+          <FadeIn delay={1.2}>
+            <p className="text-lg md:text-2xl text-stone-100 max-w-3xl mx-auto mb-12 font-light leading-relaxed drop-shadow-md">
               Elevate the guest experience with our natural, luxurious herbal products, ethically sourced and scientifically formulated.
             </p>
           </FadeIn>
           
-          <FadeIn delay={0.5}>
+          <FadeIn delay={1.5}>
             <Link to="/contact">
-                <Button className="!bg-brand-dark hover:!bg-brand-primary !text-white border-none !px-10 !py-4 text-lg shadow-2xl transition-transform hover:scale-105">
-                Request Quote
-                </Button>
+                <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                >
+                    <Button className="!bg-brand-gold hover:!bg-white hover:!text-brand-dark !text-brand-dark font-bold border-none !px-12 !py-5 text-lg shadow-[0_0_40px_-10px_rgba(212,175,55,0.6)] transition-all duration-500">
+                        Request Quote
+                    </Button>
+                </motion.div>
             </Link>
           </FadeIn>
         </div>
+        
+        {/* Scroll Indicator */}
+        <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, y: [0, 10, 0] }}
+            transition={{ delay: 2, duration: 1.5, repeat: Infinity }}
+            className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70"
+        >
+            <div className="w-[1px] h-12 bg-gradient-to-b from-white to-transparent mx-auto"></div>
+        </motion.div>
       </section>
 
-      {/* Trust Indicators */}
-      <section className="py-16 bg-white border-b border-stone-100">
+      {/* Trust Indicators - Aceternity Hover Effect */}
+      <section className="py-20 bg-white border-b border-stone-100 relative z-10">
         <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-10">
-                <h3 className="font-serif text-2xl text-brand-dark mb-2">Trusted By The Best & Committed to Quality</h3>
+            <div className="text-center mb-6">
+                <FadeIn>
+                    <h3 className="font-serif text-3xl text-brand-dark mb-2">Trusted By The Best</h3>
+                    <p className="text-stone-500 font-light">Committed to quality, transparency, and global standards.</p>
+                </FadeIn>
             </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-center">
-            <div className="flex flex-col items-center gap-4 p-4 hover:bg-stone-50 rounded-xl transition-colors group cursor-default">
-                <div className="p-3 bg-brand-cream rounded-full group-hover:bg-white transition-colors">
-                    <ShieldCheck className="text-brand-gold w-8 h-8" strokeWidth={1.5} />
-                </div>
-                <span className="text-xs uppercase tracking-widest font-bold text-stone-600">GST Verified</span>
-            </div>
-            <div className="flex flex-col items-center gap-4 p-4 hover:bg-stone-50 rounded-xl transition-colors group cursor-default">
-                <div className="p-3 bg-brand-cream rounded-full group-hover:bg-white transition-colors">
-                    <Award className="text-brand-gold w-8 h-8" strokeWidth={1.5} />
-                </div>
-                <span className="text-xs uppercase tracking-widest font-bold text-stone-600">TrustSEAL</span>
-            </div>
-            <div className="flex flex-col items-center gap-4 p-4 hover:bg-stone-50 rounded-xl transition-colors group cursor-default">
-                <div className="p-3 bg-brand-cream rounded-full group-hover:bg-white transition-colors">
-                    <Factory className="text-brand-gold w-8 h-8" strokeWidth={1.5} />
-                </div>
-                <span className="text-xs uppercase tracking-widest font-bold text-stone-600">ISO 9001:2015</span>
-            </div>
-            <div className="flex flex-col items-center gap-4 p-4 hover:bg-stone-50 rounded-xl transition-colors group cursor-default">
-                <div className="p-3 bg-brand-cream rounded-full group-hover:bg-white transition-colors">
-                    <CheckCircle className="text-brand-gold w-8 h-8" strokeWidth={1.5} />
-                </div>
-                <span className="text-xs uppercase tracking-widest font-bold text-stone-600">FSSAI Certified</span>
-            </div>
-          </div>
+            <FadeIn delay={0.3}>
+                <CardHoverEffect items={trustItems} />
+            </FadeIn>
         </div>
       </section>
 
-      {/* Legacy Section */}
-      <section className="py-24 bg-brand-cream">
+      {/* Legacy Section with Parallax Image */}
+      <section className="py-32 bg-brand-cream overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <FadeIn direction='right' className="order-2 lg:order-1">
-              <h2 className="font-serif text-4xl md:text-5xl text-brand-dark mb-8">
-                A Legacy of Purity
+              <h2 className="font-serif text-5xl md:text-6xl text-brand-dark mb-10 leading-tight">
+                A Legacy of <br/> <span className="text-brand-primary italic">Purity & Potency</span>
               </h2>
-              <div className="space-y-6 text-stone-600 font-light leading-relaxed text-lg">
+              <div className="space-y-8 text-stone-600 font-light leading-relaxed text-lg">
                 <p>
                   Founded in 1998, KL Herbal began with a simple yet profound vision: to bring the purest essence of nature into the world of luxury hospitality. Our heritage is rooted in ancient herbal traditions, combined with modern scientific precision.
                 </p>
                 <p>
-                  Our goal is to redefine the guest experience, transforming routine moments into rituals of wellness and tranquility. We believe that true luxury lies in authenticity and purity.
-                </p>
-                <p>
-                  Every product is a testament to our manufacturing ethos: ethically sourced, scientifically formulated, and crafted with unwavering attention to quality. We are committed to sustainability, ensuring a legacy of care for both people and the planet.
+                  Every product is a testament to our manufacturing ethos: ethically sourced, scientifically formulated, and crafted with unwavering attention to quality.
                 </p>
               </div>
-              <div className="mt-10">
+              <div className="mt-12">
                 <Link to="/about">
-                    <Button variant="outline" className="!px-8 !py-3 border-brand-dark text-brand-dark hover:bg-brand-dark hover:text-white">
-                        Read Our Story
+                    <Button variant="outline" className="!px-10 !py-4 text-base tracking-widest border-brand-dark text-brand-dark hover:bg-brand-dark hover:text-white transition-all duration-500">
+                        READ OUR STORY
                     </Button>
                 </Link>
               </div>
             </FadeIn>
             
-            <FadeIn direction='left' className="order-1 lg:order-2 relative group">
-                <div className="absolute -inset-4 bg-brand-gold/20 rounded-xl transform rotate-3 transition-transform group-hover:rotate-0 duration-700 ease-out"></div>
-                <img 
-                    src="https://picsum.photos/800/800?random=10" 
-                    alt="Herbal Ingredients on Dark Background" 
-                    className="relative rounded-lg shadow-2xl w-full object-cover aspect-square grayscale-[20%] group-hover:grayscale-0 transition-all duration-700"
-                />
-            </FadeIn>
+            <div className="order-1 lg:order-2 relative group">
+                <motion.div 
+                    style={{ y: yLegacy }}
+                    className="relative z-10"
+                >
+                     <img 
+                        src="https://picsum.photos/800/800?random=10" 
+                        alt="Herbal Ingredients" 
+                        className="rounded-2xl shadow-2xl w-full object-cover aspect-[4/5]"
+                    />
+                     {/* Floating Element */}
+                    <motion.div 
+                        animate={{ y: [0, -20, 0] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                        className="absolute -bottom-10 -left-10 bg-white p-6 rounded-xl shadow-xl max-w-xs hidden md:block"
+                    >
+                        <p className="font-serif italic text-brand-dark text-lg">"True luxury lies in authenticity."</p>
+                    </motion.div>
+                </motion.div>
+                
+                {/* Decorative Blob */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-brand-gold/10 rounded-full blur-3xl -z-10"></div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Feature Highlight / CTA */}
-      <section className="py-32 bg-stone-200 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-primary/5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-gold/5 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+      <section className="py-40 relative overflow-hidden bg-brand-dark text-white">
+          <motion.div 
+            style={{ scale }} 
+            className="absolute inset-0 opacity-20"
+          >
+               <img 
+                src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+                alt="Spa Background" 
+                className="w-full h-full object-cover"
+               />
+          </motion.div>
           
-          <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
+          <div className="max-w-5xl mx-auto px-4 text-center relative z-10">
             <FadeIn>
-                <h2 className="font-serif text-4xl md:text-6xl text-brand-dark mb-8 leading-tight">
+                <h2 className="font-serif text-5xl md:text-7xl mb-8 leading-tight">
                 Ready to Elevate Your <br/> Guest Experience?
                 </h2>
-                <p className="text-stone-600 text-xl mb-12 max-w-2xl mx-auto font-light">
+                <p className="text-brand-light/80 text-xl mb-16 max-w-2xl mx-auto font-light">
                 Let us help you create unforgettable moments of wellness for your guests. Contact our team for a custom quote and to explore our exclusive B2B collection.
                 </p>
                 <Link to="/contact">
-                    <Button size="lg" className="bg-brand-dark text-white hover:bg-brand-primary px-12 py-5 text-lg shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1">
+                    <motion.button 
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="bg-white text-brand-dark px-14 py-6 rounded-full text-lg font-bold tracking-wide shadow-2xl hover:shadow-[0_0_50px_rgba(255,255,255,0.3)] transition-all"
+                    >
                         Request a Quote Now
-                    </Button>
+                    </motion.button>
                 </Link>
             </FadeIn>
           </div>

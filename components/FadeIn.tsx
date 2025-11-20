@@ -6,9 +6,18 @@ interface FadeInProps {
   delay?: number;
   direction?: 'up' | 'down' | 'left' | 'right' | 'none';
   className?: string;
+  amount?: number | "some" | "all"; // How much of the element needs to be visible
+  duration?: number;
 }
 
-const FadeIn: React.FC<FadeInProps> = ({ children, delay = 0, direction = 'up', className = '' }) => {
+const FadeIn: React.FC<FadeInProps> = ({ 
+  children, 
+  delay = 0, 
+  direction = 'up', 
+  className = '',
+  amount = 0.3,
+  duration = 0.8
+}) => {
   const variants = {
     hidden: {
       opacity: 0,
@@ -20,7 +29,7 @@ const FadeIn: React.FC<FadeInProps> = ({ children, delay = 0, direction = 'up', 
       y: 0,
       x: 0,
       transition: {
-        duration: 0.8,
+        duration: duration,
         ease: [0.22, 1, 0.36, 1], // cubic-bezier for smooth feel
         delay: delay,
       },
@@ -31,7 +40,7 @@ const FadeIn: React.FC<FadeInProps> = ({ children, delay = 0, direction = 'up', 
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, amount: amount }}
       variants={variants}
       className={className}
     >

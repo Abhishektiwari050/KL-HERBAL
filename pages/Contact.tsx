@@ -1,31 +1,75 @@
+
 import React from 'react';
 import FadeIn from '../components/FadeIn';
 import Button from '../components/Button';
 import { COMPANY_INFO } from '../constants';
 import { Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Contact: React.FC = () => {
+  // Stagger animation variants for sidebar list items
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: 20 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }
+    }
+  };
+
   return (
-    <div className="bg-stone-50 min-h-screen pt-20">
-        {/* Header */}
-        <section className="bg-stone-50 pt-16 pb-12 text-center px-4">
-            <FadeIn>
-                <h1 className="font-serif text-5xl md:text-6xl text-brand-dark mb-4 tracking-tight">
-                    Partner with KL Herbal
-                </h1>
-                <p className="text-stone-500 text-lg font-light">
-                    Fill out the form below to request a quote or ask about our pure herbal innovations.
-                </p>
-            </FadeIn>
+    <div className="bg-stone-50 min-h-screen">
+        {/* Hero Section with Video */}
+        <section className="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+            <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                poster="https://images.pexels.com/photos/8063850/pexels-photo-8063850.jpeg"
+                className="absolute inset-0 w-full h-full object-cover"
+            >
+                {/* Pexels video: Green leaves/nature close up - HD 1080p */}
+                <source src="https://videos.pexels.com/video-files/5373360/5373360-hd_1920_1080_25fps.mp4" type="video/mp4" />
+            </video>
+             {/* Dark overlay for visibility */}
+            <div className="absolute inset-0 bg-black/30" />
+            <div className="absolute inset-0 bg-brand-dark/30 mix-blend-multiply" />
+            
+            <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-16">
+                <FadeIn amount={0.5}>
+                    <h1 className="font-serif text-5xl md:text-6xl text-white mb-6 tracking-tight drop-shadow-lg">
+                        Partner with KL Herbal
+                    </h1>
+                    <p className="text-stone-200 text-lg md:text-xl font-light max-w-2xl mx-auto drop-shadow-md leading-relaxed">
+                        Fill out the form below to request a quote or ask about our pure herbal innovations.
+                    </p>
+                </FadeIn>
+            </div>
         </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          {/* Contact Form (Left 2/3) */}
-          <div className="lg:col-span-2">
-             <FadeIn delay={0.2}>
-                <div className="bg-white rounded-2xl shadow-sm border border-stone-200 p-8 md:p-12">
+          {/* Contact Form (Left - spans 8 cols) */}
+          <div className="lg:col-span-8">
+             <FadeIn delay={0.2} className="h-full" direction="up">
+                <div className="bg-white rounded-2xl shadow-sm border border-stone-200 p-8 md:p-12 h-full">
                     <h2 className="font-serif text-3xl text-brand-dark mb-8">Request a Quote</h2>
                     
                     <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
@@ -71,7 +115,7 @@ const Contact: React.FC = () => {
                             <textarea rows={5} placeholder="Tell us more about your needs..." className="w-full px-4 py-3 rounded-lg bg-stone-50 border border-stone-200 focus:border-brand-primary focus:ring-1 focus:ring-brand-primary outline-none transition-all font-light resize-none"></textarea>
                         </div>
 
-                        <Button className="w-full !py-4 text-lg bg-brand-dark hover:bg-brand-primary">
+                        <Button className="w-full !py-4 text-lg bg-brand-dark hover:bg-brand-primary text-white shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
                             Submit Inquiry
                         </Button>
                     </form>
@@ -79,63 +123,72 @@ const Contact: React.FC = () => {
              </FadeIn>
           </div>
 
-          {/* Sidebar Info (Right 1/3) */}
-          <div className="lg:col-span-1 space-y-8">
-            <FadeIn delay={0.4}>
-                {/* Contact Details */}
-                <div className="bg-transparent space-y-8">
-                    <h3 className="font-bold text-xl text-brand-dark mb-6">Direct Contact Information</h3>
+          {/* Sidebar Info (Right - spans 4 cols) */}
+          <div className="lg:col-span-4">
+            <FadeIn delay={0.4} className="h-full" direction="left">
+                <div className="bg-white rounded-2xl shadow-sm border border-stone-200 p-8 h-full flex flex-col">
+                    <h3 className="font-serif text-2xl text-brand-dark mb-8">Contact Information</h3>
                     
-                    <div className="flex items-start gap-4">
-                        <div className="mt-1 text-brand-dark"><MapPin size={24} /></div>
-                        <div>
-                            <h4 className="font-semibold text-brand-dark">KL Herbal Factory</h4>
-                            <p className="text-stone-500 font-light text-sm mt-1 leading-relaxed text-balance">
-                                {COMPANY_INFO.address}
-                            </p>
-                        </div>
-                    </div>
+                    {/* Staggered List Container */}
+                    <motion.div 
+                      className="space-y-8 flex-grow"
+                      variants={containerVariants}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                    >
+                        <motion.div variants={itemVariants} className="flex items-start gap-4 group">
+                            <div className="mt-1 text-brand-dark p-3 bg-brand-cream rounded-full group-hover:bg-brand-primary group-hover:text-white transition-colors duration-300"><MapPin size={20} /></div>
+                            <div>
+                                <h4 className="font-semibold text-brand-dark mb-1">Factory Address</h4>
+                                <p className="text-stone-500 font-light text-sm leading-relaxed text-balance">
+                                    {COMPANY_INFO.address}
+                                </p>
+                            </div>
+                        </motion.div>
 
-                    <div className="flex items-start gap-4">
-                        <div className="mt-1 text-brand-dark"><Phone size={24} /></div>
-                        <div>
-                            <h4 className="font-semibold text-brand-dark">Phone</h4>
-                            <p className="text-stone-500 font-light text-sm mt-1">{COMPANY_INFO.phone}</p>
-                        </div>
-                    </div>
+                        <motion.div variants={itemVariants} className="flex items-start gap-4 group">
+                            <div className="mt-1 text-brand-dark p-3 bg-brand-cream rounded-full group-hover:bg-brand-primary group-hover:text-white transition-colors duration-300"><Phone size={20} /></div>
+                            <div>
+                                <h4 className="font-semibold text-brand-dark mb-1">Phone</h4>
+                                <p className="text-stone-500 font-light text-sm">{COMPANY_INFO.phone}</p>
+                                <p className="text-stone-400 text-xs mt-1">Mon-Fri, 9am - 6pm IST</p>
+                            </div>
+                        </motion.div>
 
-                    <div className="flex items-start gap-4">
-                        <div className="mt-1 text-brand-dark"><Mail size={24} /></div>
-                        <div>
-                            <h4 className="font-semibold text-brand-dark">Email</h4>
-                            <p className="text-stone-500 font-light text-sm mt-1">{COMPANY_INFO.email}</p>
-                        </div>
-                    </div>
+                        <motion.div variants={itemVariants} className="flex items-start gap-4 group">
+                            <div className="mt-1 text-brand-dark p-3 bg-brand-cream rounded-full group-hover:bg-brand-primary group-hover:text-white transition-colors duration-300"><Mail size={20} /></div>
+                            <div>
+                                <h4 className="font-semibold text-brand-dark mb-1">Email</h4>
+                                <p className="text-stone-500 font-light text-sm">{COMPANY_INFO.email}</p>
+                                <p className="text-stone-400 text-xs mt-1">Responses within 24 hours</p>
+                            </div>
+                        </motion.div>
+                    </motion.div>
 
-                    <a href={`https://wa.me/${COMPANY_INFO.whatsapp.replace(/[^0-9]/g, '')}`} target="_blank" rel="noreferrer">
-                        <button className="w-full flex items-center justify-center gap-3 mt-6 border-2 border-brand-dark text-brand-dark py-3 rounded-full font-semibold hover:bg-brand-dark hover:text-white transition-all duration-300">
-                            <MessageCircle size={20} />
-                            Chat with us on WhatsApp
-                        </button>
-                    </a>
-                </div>
+                    <FadeIn delay={0.8} direction="up">
+                      <div className="mt-10 space-y-6">
+                          <a href={`https://wa.me/${COMPANY_INFO.whatsapp.replace(/[^0-9]/g, '')}`} target="_blank" rel="noreferrer">
+                              <button className="w-full flex items-center justify-center gap-3 border border-stone-200 text-stone-700 hover:border-green-600 hover:text-green-700 bg-stone-50 hover:bg-green-50 py-3 rounded-xl font-medium transition-all duration-300 mb-6">
+                                  <MessageCircle size={20} />
+                                  Chat on WhatsApp
+                              </button>
+                          </a>
 
-                {/* Map Section */}
-                <div className="mt-10">
-                     <h3 className="font-bold text-xl text-brand-dark mb-4">Our Location</h3>
-                     <div className="rounded-2xl overflow-hidden shadow-md border border-stone-200 h-64 bg-stone-200 relative">
-                        {/* Static Map Image Placeholder since we don't have a Google Maps Key */}
-                        <img 
-                            src="https://picsum.photos/600/400?random=map&grayscale" 
-                            alt="Map Location" 
-                            className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
-                        />
-                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                             <div className="bg-brand-dark text-white px-4 py-2 rounded-full shadow-lg text-sm font-bold flex items-center gap-2">
-                                <MapPin size={16} /> Delhi, India
-                             </div>
-                        </div>
-                     </div>
+                          <div className="rounded-xl overflow-hidden border border-stone-200 h-48 w-full relative group">
+                              <img 
+                                  src="https://picsum.photos/600/400?random=map&grayscale" 
+                                  alt="Map Location" 
+                                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-500"
+                              />
+                              <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
+                              <div className="absolute bottom-3 left-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-2 rounded-lg text-xs font-medium text-stone-600 shadow-sm flex items-center justify-between">
+                                  <span>New Delhi, India</span>
+                                  <MapPin size={14} className="text-brand-dark"/>
+                              </div>
+                          </div>
+                      </div>
+                    </FadeIn>
                 </div>
             </FadeIn>
           </div>
