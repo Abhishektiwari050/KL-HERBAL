@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import FadeIn from '../components/FadeIn';
@@ -146,18 +147,23 @@ const About: React.FC = () => {
           </div>
       </section>
 
-      {/* Certifications - Minimalist Grid */}
+      {/* Certifications - Minimalist Grid with Animations */}
       <section className="py-32 bg-white border-t border-stone-100">
          <div className="max-w-[1800px] mx-auto px-6 md:px-12 lg:px-24">
+             <FadeIn className="mb-16 text-center">
+                <h2 className="font-serif text-3xl md:text-4xl text-brand-dark">Manufacturing Credentials</h2>
+             </FadeIn>
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-stone-100 border border-stone-100">
                  {CERTIFICATIONS.map((cert, idx) => (
-                     <div key={idx} className="bg-white p-12 flex flex-col items-start hover:bg-stone-50 transition-colors duration-500 group">
-                         <div className="mb-6 text-brand-dark group-hover:text-brand-gold transition-colors">
-                             <cert.icon size={32} strokeWidth={1} />
-                         </div>
-                         <h3 className="font-serif text-xl text-brand-dark mb-3">{cert.title}</h3>
-                         <p className="text-stone-500 font-light text-sm">{cert.description}</p>
-                     </div>
+                     <FadeIn key={idx} delay={idx * 0.1} direction="up" className="h-full">
+                       <div className="bg-white p-12 flex flex-col items-start h-full hover:bg-stone-50 transition-colors duration-500 group">
+                           <div className="mb-6 text-brand-dark group-hover:text-brand-gold transition-colors">
+                               <cert.icon size={32} strokeWidth={1} />
+                           </div>
+                           <h3 className="font-serif text-xl text-brand-dark mb-3">{cert.title}</h3>
+                           <p className="text-stone-500 font-light text-sm">{cert.description}</p>
+                       </div>
+                     </FadeIn>
                  ))}
              </div>
          </div>

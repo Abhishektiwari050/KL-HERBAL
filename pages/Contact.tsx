@@ -20,10 +20,10 @@ const Contact: React.FC = () => {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, x: 20 },
+    hidden: { opacity: 0, y: 20 }, // Changed x to y for slide-up
     visible: { 
       opacity: 1, 
-      x: 0,
+      y: 0, // Changed x to y for slide-up
       transition: {
         type: "spring",
         stiffness: 100,
@@ -125,7 +125,7 @@ const Contact: React.FC = () => {
 
           {/* Sidebar Info (Right - spans 4 cols) */}
           <div className="lg:col-span-4">
-            <FadeIn delay={0.4} className="h-full" direction="left">
+            <FadeIn delay={0.4} className="h-full" direction="up">
                 <div className="bg-white rounded-2xl shadow-sm border border-stone-200 p-8 h-full flex flex-col">
                     <h3 className="font-serif text-2xl text-brand-dark mb-8">Contact Information</h3>
                     
