@@ -9,9 +9,12 @@ const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
+  // Pages with Dark Hero sections (Video/Image backgrounds) where text should be white at the top
+  const hasDarkHero = ['/', '/manufacturing', '/contact'].includes(location.pathname);
+
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -29,50 +32,65 @@ const Navbar: React.FC = () => {
     { name: 'Contact', path: '/contact' },
   ];
 
-  return (
-    <nav 
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-brand-cream/95 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-6'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 transition-transform group-hover:scale-105">
-              <Logo />
-            </div>
-            <div className="flex flex-col justify-center">
-              <span className={`font-serif text-xl font-bold tracking-wide leading-none ${scrolled ? 'text-brand-dark' : 'text-brand-dark'}`}>
-                KL Herbal
-              </span>
-              {/* <span className="text-[0.6rem] uppercase tracking-widest text-brand-primary font-medium leading-none mt-1">Enterprises</span> */}
-            </div>
-          </Link>
+  // Dynamic styles based on scroll and page type
+  const isTransparent = !scrolled && hasDarkHero;
+  
+  const navClasses = scrolled 
+    ? 'bg-white/90 backdrop-blur-xl shadow-sm py-2 border-stone-200/50' 
+    : 'bg-transparent py-6 border-transparent';
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className="text-sm font-medium text-stone-600 hover:text-brand-dark transition-colors uppercase tracking-wider"
-              >
-                {link.name}
-              </Link>
-            ))}
+  const textColorClass = isTransparent ? 'text-white/90 hover:text-white' : 'text-stone-700 hover:text-brand-dark';
+  const underlineClass = isTransparent ? 'bg-brand-gold' : 'bg-brand-dark';
+  const logoDarkProp = isTransparent; // If transparent (dark hero), use Dark mode logo (which returns White color)
+
+  return (
+    <nav className={`fixed w-full z-50 transition-all duration-500 border-b ${navClasses}`}>
+      <div className="max-w-[1800px] mx-auto px-6 md:px-12">
+        <div className="relative flex justify-between items-center h-16">
+          
+          {/* Left: Logo */}
+          <div className="flex-shrink-0 flex items-center z-20">
+            <Link to="/" className="flex items-center gap-3 group">
+              <div className="w-10 h-10 transition-transform duration-500 group-hover:scale-105 group-hover:rotate-3">
+                <Logo dark={logoDarkProp} />
+              </div>
+              <div className="flex flex-col justify-center">
+                <span className={`font-serif text-xl font-bold tracking-wide leading-none transition-colors duration-300 ${isTransparent ? 'text-white' : 'text-brand-dark'}`}>
+                  KL Herbal
+                </span>
+              </div>
+            </Link>
+          </div>
+
+          {/* Right Side: Desktop Nav + CTA */}
+          <div className="hidden lg:flex items-center gap-10 z-20">
+            {/* Nav Links */}
+            <div className="flex items-center space-x-8">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className={`relative text-xs font-bold transition-colors uppercase tracking-[0.2em] group py-2 ${textColorClass}`}
+                >
+                  {link.name}
+                  <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${underlineClass}`}></span>
+                </Link>
+              ))}
+            </div>
+
+            {/* CTA Button */}
             <Link to="/contact">
-                <Button variant="primary" className="ml-4 !py-2.5 !px-6 text-xs uppercase tracking-widest shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all">
+                <Button variant={isTransparent ? "outline" : "primary"} className={`!py-2.5 !px-6 text-xs uppercase tracking-widest shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all ${isTransparent ? '!border-white !text-white hover:!bg-white hover:!text-brand-dark' : ''}`}>
                 Request Quote
                 </Button>
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
+          {/* Mobile Menu Button (Visible < lg) */}
+          <div className="lg:hidden flex items-center z-20">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-brand-dark hover:text-brand-primary focus:outline-none"
+              className={`focus:outline-none p-2 rounded-md transition-colors ${isTransparent ? 'text-white hover:bg-white/10' : 'text-brand-dark hover:bg-black/5'}`}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -81,26 +99,24 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-brand-cream shadow-lg border-t border-stone-100">
-          <div className="px-6 pt-4 pb-8 space-y-4 flex flex-col items-center">
+      <div className={`lg:hidden absolute top-full left-0 w-full bg-brand-cream/95 backdrop-blur-xl shadow-xl border-t border-stone-100 transition-all duration-500 ease-in-out overflow-hidden ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
+          <div className="px-6 pt-8 pb-12 space-y-6 flex flex-col items-center h-screen">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
-                className="block px-3 py-2 text-base font-medium text-stone-700 hover:text-brand-primary w-full text-center border-b border-stone-100 last:border-0"
+                className="block px-3 py-2 text-2xl font-serif text-brand-dark hover:text-brand-primary hover:italic transition-all"
               >
                 {link.name}
               </Link>
             ))}
-            <div className="pt-4 w-full max-w-xs">
+            <div className="pt-8 w-full max-w-xs">
               <Link to="/contact">
-                  <Button className="w-full justify-center">Request Quote</Button>
+                  <Button className="w-full justify-center !text-sm !py-4">Request Quote</Button>
               </Link>
             </div>
           </div>
-        </div>
-      )}
+      </div>
     </nav>
   );
 };

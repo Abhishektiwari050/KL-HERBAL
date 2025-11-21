@@ -26,12 +26,20 @@ export const BUSINESS_PROFILE = [
     { label: "Banker", value: "State Bank of India" },
 ];
 
+// Specific Showcase Images based on user request (Aloe, Charcoal, Pink Rose, Orange)
+export const HOME_PRODUCT_IMAGES = {
+    aloe: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=1000&auto=format&fit=crop", // Green Soap Stack
+    charcoal: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1000&auto=format&fit=crop", // Dark/Black Soap
+    pinkRose: "https://images.unsplash.com/photo-1607006411088-4325d9f07285?q=80&w=1000&auto=format&fit=crop", // Pink Soap
+    orange: "https://images.unsplash.com/photo-1629196914168-3a9644399fa8?q=80&w=1000&auto=format&fit=crop", // Orange Soap
+};
+
 // Carousel images for the Products page hero
 export const PRODUCT_HERO_IMAGES = [
-  "https://images.pexels.com/photos/8063850/pexels-photo-8063850.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", // Green Leaf/Aloe
-  "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop", // Soap stack
-  "https://images.unsplash.com/photo-1612486875798-4b8cd8478f76?q=80&w=2000&auto=format&fit=crop", // Bottles
-  "https://images.unsplash.com/photo-1556228720-19de777237a9?q=80&w=2000&auto=format&fit=crop" // Lavender/Herbs
+  HOME_PRODUCT_IMAGES.aloe,
+  HOME_PRODUCT_IMAGES.charcoal,
+  HOME_PRODUCT_IMAGES.pinkRose,
+  HOME_PRODUCT_IMAGES.orange
 ];
 
 export const PRODUCTS: Product[] = [
@@ -41,11 +49,19 @@ export const PRODUCTS: Product[] = [
     name: 'Pink Rose Soap Base',
     category: ProductCategory.SOAP_BASE,
     description: 'Premium melt-and-pour soap base infused with rose essence for a luxurious floral fragrance.',
-    image: 'https://5.imimg.com/data5/SELLER/Default/2023/5/306759076/OV/QT/UT/2493339/pink-rose-soap-base.jpg',
+    image: HOME_PRODUCT_IMAGES.pinkRose,
     features: ['Rose Infused', 'High Lather', 'Melt & Pour']
   },
   {
     id: 'sb-2',
+    name: 'Charcoal Soap Base',
+    category: ProductCategory.SOAP_BASE,
+    description: 'Detoxifying activated charcoal base, perfect for deep cleansing and purifying formulations.',
+    image: HOME_PRODUCT_IMAGES.charcoal,
+    features: ['Activated Charcoal', 'Detoxifying', 'Matte Finish']
+  },
+  {
+    id: 'sb-3',
     name: 'Blueberry Soap Base',
     category: ProductCategory.SOAP_BASE,
     description: 'Antioxidant-rich blueberry soap base offering a fruity aroma and deep cleansing properties.',
@@ -53,33 +69,33 @@ export const PRODUCTS: Product[] = [
     features: ['Fruity Aroma', 'Antioxidant Rich', 'Vibrant Color']
   },
   {
-    id: 'sb-3',
+    id: 'sb-4',
     name: 'Transparent Glycerin Soap Base',
     category: ProductCategory.SOAP_BASE,
     description: 'Crystal clear glycerin base perfect for embedding herbs or creating custom designs.',
     image: 'https://5.imimg.com/data5/ANDROID/Default/2021/3/XG/CO/XG/2493339/product-jpeg-500x500.jpg',
     features: ['High Transparency', 'Moisturizing', 'Customizable']
   },
-  {
-    id: 'sb-4',
-    name: 'Redwine Soap Base',
-    category: ProductCategory.SOAP_BASE,
-    description: 'Luxurious red wine extract base known for anti-aging properties and rich texture.',
-    image: 'https://5.imimg.com/data5/SELLER/Default/2023/5/306761566/QW/ZR/EY/2493339/red-wine-soap-base.jpg',
-    features: ['Anti-aging', 'Rich Lather', 'Premium Quality']
-  },
 
   // --- Hotel Soaps ---
   {
     id: 'hs-1',
-    name: 'Hotel Toilet Soap',
+    name: 'Aloe Vera Hotel Soap',
     category: ProductCategory.SOAPS,
-    description: 'Standard hotel guest soap providing a fresh and hygienic bathing experience.',
-    image: 'https://5.imimg.com/data5/SELLER/Default/2021/3/YC/VL/OD/2493339/hotel-soap-500x500.jpg',
-    features: ['Standard Size', 'Fresh Scent', 'Cost Effective']
+    description: 'Enriched with Aloe Vera extract to soothe and nourish skin after travel. Available in 15g.',
+    image: HOME_PRODUCT_IMAGES.aloe,
+    features: ['Aloe Extract', 'Soothing', 'Herbal Scent']
   },
   {
     id: 'hs-2',
+    name: 'Orange Hotel Soap',
+    category: ProductCategory.SOAPS,
+    description: 'Zesty orange infused soap for a refreshing morning shower. Available in 12g Milky Packing.',
+    image: HOME_PRODUCT_IMAGES.orange,
+    features: ['Citrus Scent', 'Refreshing', '12g Size']
+  },
+  {
+    id: 'hs-3',
     name: 'Hotel Guest Toiletries',
     category: ProductCategory.SOAPS,
     description: 'A comprehensive range of small bar soaps tailored for hospitality guest usage.',
@@ -87,7 +103,7 @@ export const PRODUCTS: Product[] = [
     features: ['Eco Packaging', 'Guest Ready', 'Variety']
   },
   {
-    id: 'hs-3',
+    id: 'hs-4',
     name: 'Hotel Soap 10g',
     category: ProductCategory.SOAPS,
     description: 'Compact 10g soap bars, perfect for short stays and eco-conscious hotels.',
@@ -95,7 +111,7 @@ export const PRODUCTS: Product[] = [
     features: ['10g Size', 'Single Use', 'Budget Friendly']
   },
   {
-    id: 'hs-4',
+    id: 'hs-5',
     name: 'Hotel Soap 20g',
     category: ProductCategory.SOAPS,
     description: 'Standard 20g hotel soap bars offering a balance of longevity and convenience.',
@@ -103,44 +119,12 @@ export const PRODUCTS: Product[] = [
     features: ['20g Size', 'Pleat Wrapped', 'Popular Choice']
   },
   {
-    id: 'hs-5',
+    id: 'hs-6',
     name: 'White Hotel Soap',
     category: ProductCategory.SOAPS,
     description: 'Classic opaque white soap bars with a mild fragrance for universal appeal.',
     image: 'https://5.imimg.com/data5/SELLER/Default/2021/3/IO/CR/XM/2493339/hotel-shampoo-500x500.jpg',
     features: ['Pure White', 'Mild Fragrance', 'Gentle']
-  },
-  {
-    id: 'hs-6',
-    name: 'Glycerine Soap For Hotels',
-    category: ProductCategory.SOAPS,
-    description: 'Gentle glycerin-based bars designed to prevent dry skin for hotel guests.',
-    image: 'https://5.imimg.com/data5/SELLER/Default/2021/3/UY/QO/GL/2493339/body-wash-500x500.jpg',
-    features: ['Skin Friendly', 'Moisturizing', 'Translucent']
-  },
-  {
-    id: 'hs-7',
-    name: 'Aloe Vera Hotel Soap',
-    category: ProductCategory.SOAPS,
-    description: 'Enriched with Aloe Vera extract to soothe and nourish skin after travel.',
-    image: 'https://5.imimg.com/data5/SELLER/Default/2023/1/VR/YI/GA/2493339/neem-soap.jpeg',
-    features: ['Aloe Extract', 'Soothing', 'Herbal Scent']
-  },
-  {
-    id: 'hs-8',
-    name: 'Lemon Glycerine Bath Soap',
-    category: ProductCategory.SOAPS,
-    description: 'Zesty lemon infused glycerin soap for a refreshing morning shower.',
-    image: 'https://5.imimg.com/data5/SELLER/Default/2021/3/UY/QO/GL/2493339/body-wash-500x500.jpg',
-    features: ['Lemon Scent', 'Refreshing', 'Glycerin Base']
-  },
-  {
-    id: 'hs-9',
-    name: 'Hotel Guest Soaps',
-    category: ProductCategory.SOAPS,
-    description: 'Assorted shapes and sizes of guest soaps available for bulk orders.',
-    image: 'https://5.imimg.com/data5/SELLER/Default/2021/3/YC/VL/OD/2493339/hotel-soap-500x500.jpg',
-    features: ['Bulk Pack', 'Assorted', 'Custom Logo']
   },
 
   // --- Raw Materials ---

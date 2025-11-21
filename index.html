@@ -12,16 +12,20 @@
           extend: {
             colors: {
               brand: {
-                dark: '#1A3C34', // Deep forest green
-                primary: '#2D5A4C', // Muted herbal green
-                light: '#E8ECE9', // Light sage
-                cream: '#F9F8F6', // Paper/Cream background
-                gold: '#D4AF37', // Accent gold
+                dark: '#0F2A23', // Deeper, richer forest green
+                primary: '#1B4D3E', // Classic herbal emerald
+                light: '#E3E8E6', // Soft sage
+                cream: '#F2F0E9', // Warm paper texture
+                gold: '#C5A059', // Muted, metallic gold
+                charcoal: '#1C1C1C', // Soft black for text
               }
             },
             fontFamily: {
               serif: ['Playfair Display', 'serif'],
               sans: ['Inter', 'sans-serif'],
+            },
+            backgroundImage: {
+              'grain': 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\' opacity=\'0.05\'/%3E%3C/svg%3E")',
             }
           }
         }
@@ -30,14 +34,23 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
       html {
         scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
       body {
-        background-color: #F9F8F6;
-        color: #1c1917;
+        background-color: #F2F0E9;
+        color: #1C1C1C;
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
       }
     </style>
   <script type="importmap">

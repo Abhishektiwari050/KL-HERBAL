@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import FadeIn from '../components/FadeIn';
@@ -25,8 +24,9 @@ const Manufacturing: React.FC = () => {
                 alt="Manufacturing Facility"
                 className="w-full h-full object-cover"
              />
-             <div className="absolute inset-0 bg-brand-dark/70 mix-blend-multiply"></div>
-             <div className="absolute inset-0 bg-black/30"></div>
+             {/* Stronger overlays for text legibility */}
+             <div className="absolute inset-0 bg-brand-dark/80 mix-blend-multiply"></div>
+             <div className="absolute inset-0 bg-black/50"></div>
         </motion.div>
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 text-center text-white mt-16">
@@ -37,7 +37,7 @@ const Manufacturing: React.FC = () => {
                 </h1>
             </FadeIn>
             <FadeIn delay={0.5}>
-                <p className="text-lg md:text-2xl max-w-3xl mx-auto font-light text-stone-200 mb-10 leading-relaxed">
+                <p className="text-lg md:text-2xl max-w-3xl mx-auto font-light text-stone-200 mb-10 leading-relaxed drop-shadow-md">
                    KL Herbal is committed to providing the finest natural amenities for the hospitality industry, elevating every stay into a memorable wellness journey.
                 </p>
             </FadeIn>
